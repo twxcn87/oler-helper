@@ -1,8 +1,8 @@
 // mini-program/pages/index/index.js
 // OIer-Helper 微信小程序 - 接入真实 AI API
 
-// API 地址配置 - 使用 localhost（通过 ADB 端口转发访问服务器）
-const API_BASE = 'http://localhost:8080';
+// API 地址配置 - 使用 Vercel 在线部署
+const API_BASE = 'https://oler-helper.vercel.app';
 
 // Markdown 转 HTML（简单实现）
 function markdownToHTML(md) {

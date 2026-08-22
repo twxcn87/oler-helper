@@ -223,17 +223,22 @@ async function callDeepSeek(prompt) {
     return response.data.choices[0].message.content;
 }
 
-// 启动服务器
-app.listen(PORT, () => {
-    console.log(`🚀 OIer-Helper API 服务已启动`);
-    console.log(`📍 服务地址: http://localhost:${PORT}`);
-    console.log(`🔗 API 端点: http://localhost:${PORT}/api/generate`);
-    
-    const config = checkAPIConfig();
-    if (config.valid) {
-        console.log(`✅ AI 配置: ${config.provider}`);
-    } else {
-        console.log(`⚠️  警告: ${config.error}`);
-        console.log(`   请创建 .env 文件并配置 API Key`);
-    }
-});
+// 启动服务器（本地开发用）
+if (process.env.VERCEL !== '1') {
+    app.listen(PORT, () => {
+        console.log(`🚀 OIer-Helper API 服务已启动`);
+        console.log(`📍 服务地址: http://localhost:${PORT}`);
+        console.log(`🔗 API 端点: http://localhost:${PORT}/api/generate`);
+        
+        const config = checkAPIConfig();
+        if (config.valid) {
+            console.log(`✅ AI 配置: ${config.provider}`);
+        } else {
+            console.log(`⚠️  警告: ${config.error}`);
+            console.log(`   请创建 .env 文件并配置 API Key`);
+        }
+    });
+}
+
+// Vercel Serverless 导出
+module.exports = app;

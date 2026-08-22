@@ -16,7 +16,7 @@ App({
     }
 
     this.globalData = {
-      apiBase: 'http://localhost:8080',
+      apiBase: 'https://oler-helper.vercel.app',
       userInfo: null
     }
   },
