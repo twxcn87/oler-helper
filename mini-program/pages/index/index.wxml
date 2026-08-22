@@ -1,0 +1,134 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="title">🤖 OIer-Helper</view>
+  <view class="subtitle">算法学习助手 - 像助教一样的耐心辅导</view>
+  
+  <view class="card">
+    <view class="mode-tabs">
+      <view class="mode-tab {{currentMode === 'problem' ? 'active' : ''}}" bindtap="switchMode" data-mode="problem">
+        <text class="icon">📝</text>
+        <text>题目解析</text>
+      </view>
+      <view class="mode-tab {{currentMode === 'algorithm' ? 'active' : ''}}" bindtap="switchMode" data-mode="algorithm">
+        <text class="icon">📚</text>
+        <text>算法讲解</text>
+      </view>
+      <view class="mode-tab {{currentMode === 'debug' ? 'active' : ''}}" bindtap="switchMode" data-mode="debug">
+        <text class="icon">🔍</text>
+        <text>代码Debug</text>
+      </view>
+      <view class="mode-tab {{currentMode === 'exercise' ? 'active' : ''}}" bindtap="switchMode" data-mode="exercise">
+        <text class="icon">✏️</text>
+        <text>练习题</text>
+      </view>
+      <view class="mode-tab {{currentMode === 'notes' ? 'active' : ''}}" bindtap="switchMode" data-mode="notes">
+        <text class="icon">📒</text>
+        <text>笔记整理</text>
+      </view>
+    </view>
+    
+    <!-- 题目解析 -->
+    <view wx:if="{{currentMode === 'problem'}}" class="mode-content">
+      <view class="hint-box">
+        <text class="hint-title">💡 使用方法：</text>
+        <text class="hint-text">粘贴洛谷、Codeforces 或其他 OJ 的题目链接，我会帮你分析题目并提供解题思路。</text>
+      </view>
+      <view class="examples">
+        <text class="example-tag" bindtap="fillInput" data-text="https://www.luogu.com.cn/problem/P1012">洛谷 P1012</text>
+        <text class="example-tag" bindtap="fillInput" data-text="https://www.luogu.com.cn/problem/P1013">洛谷 P1013</text>
+        <text class="example-tag" bindtap="fillInput" data-text="https://codeforces.com/problemset/problem/1A">Codeforces 1A</text>
+      </view>
+      <view class="input-section">
+        <text class="label">📎 题目链接：</text>
+        <input type="text" placeholder="https://www.luogu.com.cn/problem/P1012" bindinput="onInput" data-field="problemUrl" value="{{problemUrl}}" />
+      </view>
+      <button class="btn-primary" bindtap="generate" data-mode="problem">开始解析题目</button>
+    </view>
+    
+    <!-- 算法讲解 -->
+    <view wx:if="{{currentMode === 'algorithm'}}" class="mode-content">
+      <view class="hint-box">
+        <text class="hint-title">💡 使用方法：</text>
+        <text class="hint-text">输入你想学习的算法名称，我会系统讲解概念、步骤、代码模板和练习题。</text>
+      </view>
+      <view class="examples">
+        <text class="example-tag" bindtap="fillInput" data-text="快速排序">快速排序</text>
+        <text class="example-tag" bindtap="fillInput" data-text="二分查找">二分查找</text>
+        <text class="example-tag" bindtap="fillInput" data-text="深度优先搜索DFS">DFS</text>
+        <text class="example-tag" bindtap="fillInput" data-text="动态规划">动态规划</text>
+        <text class="example-tag" bindtap="fillInput" data-text="并查集">并查集</text>
+        <text class="example-tag" bindtap="fillInput" data-text="树状数组">树状数组</text>
+      </view>
+      <view class="input-section">
+        <text class="label">📖 想学什么算法？</text>
+        <input type="text" placeholder="例如：快速排序、动态规划..." bindinput="onInput" data-field="algorithmName" value="{{algorithmName}}" />
+      </view>
+      <button class="btn-primary" bindtap="generate" data-mode="algorithm">开始讲解</button>
+    </view>
+    
+    <!-- 代码Debug -->
+    <view wx:if="{{currentMode === 'debug'}}" class="mode-content">
+      <view class="hint-box">
+        <text class="hint-title">💡 使用方法：</text>
+        <text class="hint-text">粘贴你的 C++ 代码，我会帮你找出错误（CE/RE/WA/TLE）并给出修正方案。</text>
+      </view>
+      <view class="input-section">
+        <text class="label">💻 你的代码：</text>
+        <textarea placeholder="粘贴你的 C++ 代码在这里..." bindinput="onInput" data-field="debugCode" value="{{debugCode}}" />
+      </view>
+      <view class="input-section">
+        <text class="label">❓ 遇到的问题（可选）：</text>
+        <input type="text" placeholder="例如：编译错误、答案错误、超时..." bindinput="onInput" data-field="debugIssue" value="{{debugIssue}}" />
+      </view>
+      <button class="btn-primary" bindtap="generate" data-mode="debug">分析代码</button>
+    </view>
+    
+    <!-- 练习题 -->
+    <view wx:if="{{currentMode === 'exercise'}}" class="mode-content">
+      <view class="hint-box">
+        <text class="hint-title">💡 使用方法：</text>
+        <text class="hint-text">告诉我你学完了什么知识点，我会推荐 3-5 道梯度难度的练习题。</text>
+      </view>
+      <view class="examples">
+        <text class="example-tag" bindtap="fillInput" data-text="二分查找">二分查找</text>
+        <text class="example-tag" bindtap="fillInput" data-text="快速排序">快速排序</text>
+        <text class="example-tag" bindtap="fillInput" data-text="深度优先搜索">DFS</text>
+        <text class="example-tag" bindtap="fillInput" data-text="动态规划">动态规划</text>
+      </view>
+      <view class="input-section">
+        <text class="label">📚 学完了什么知识点？</text>
+        <input type="text" placeholder="例如：二分查找、并查集..." bindinput="onInput" data-field="exerciseTopic" value="{{exerciseTopic}}" />
+      </view>
+      <button class="btn-primary" bindtap="generate" data-mode="exercise">推荐练习题</button>
+    </view>
+    
+    <!-- 笔记整理 -->
+    <view wx:if="{{currentMode === 'notes'}}" class="mode-content">
+      <view class="hint-box">
+        <text class="hint-title">💡 使用方法：</text>
+        <text class="hint-text">输入你想整理的知识点，我会生成结构化的学习笔记。</text>
+      </view>
+      <view class="input-section">
+        <text class="label">📒 想整理什么笔记？</text>
+        <input type="text" placeholder="例如：动态规划、图论基础..." bindinput="onInput" data-field="notesTopic" value="{{notesTopic}}" />
+      </view>
+      <button class="btn-primary" bindtap="generate" data-mode="notes">生成笔记</button>
+    </view>
+    
+    <!-- 加载中 -->
+    <view wx:if="{{loading}}" class="loading">
+      <view class="spinner"></view>
+      <text>正在分析中，请稍候...</text>
+    </view>
+    
+    <!-- 结果区域 -->
+    <view wx:if="{{result}}" class="result-section">
+      <text class="result-title">{{resultTitle}}</text>
+      <rich-text nodes="{{resultNodes}}"></rich-text>
+    </view>
+  </view>
+  
+  <view class="footer">
+    <text>OIer-Helper v1.0 | 仅供学习参考，请遵守学术诚信</text>
+  </view>
+</view>

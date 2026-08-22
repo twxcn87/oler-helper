@@ -1,0 +1,46 @@
+{
+  "name": "oler-helper-desktop",
+  "version": "1.0.0",
+  "description": "OIer-Helper 桌面应用 - 算法学习助手",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
+  },
+  "keywords": [
+    "OI",
+    "algorithm",
+    "helper",
+    "education"
+  ],
+  "author": "WorkBuddy",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^30.5.1",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.oler-helper.app",
+    "productName": "OIer-Helper",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!**/node_modules/*",
+      "!node_modules/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
