@@ -1,12 +1,8 @@
-# 依赖目录
+# Cloudflare Workers
 node_modules/
+.workerd/
+wrangler.toml.local
 
-# 环境变量
-.env
-
-# 日志
-*.log
-
-# 系统文件
-.DS_Store
-Thumbs.db
+# Git
+.git/
+.gitignore

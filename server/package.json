@@ -1,9 +1,10 @@
 {
-  "name": "oler-helper-server",
-  "version": "1.0.0",
-  "description": "OIer-Helper AI API 服务",
-  "main": "api/handler.js",
+  "name": "oler-helper",
+  "main": "worker.js",
   "scripts": {
-    "start": "node api/handler.js"
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
   }
 }
