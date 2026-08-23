@@ -1,12 +1,7 @@
 name = "oler-helper"
 main = "worker.js"
 compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
 
-# 环境变量（部署时通过 wrangler secret 设置，不提交到 Git）
-# wrangler secret put OPENAI_API_KEY
-# wrangler secret put OPENAI_BASE_URL
-# wrangler secret put OPENAI_MODEL
-
-[vars]
-# 只有非敏感变量放在这里
-NODE_ENV = "production"
+# 环境变量在 Cloudflare Dashboard 中配置
+# OPENAI_API_KEY, OPENAI_BASE_URL, OPENAI_MODEL

@@ -1,7 +1,5 @@
 // Cloudflare Worker - OIer-Helper API
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
-const OPENAI_BASE_URL = process.env.OPENAI_BASE_URL || 'https://api.agnes-ai.cn/v1';
-const OPENAI_MODEL = process.env.OPENAI_MODEL || 'agnes-2.5-flash';
+// 环境变量通过 fetch 函数的 env 参数获取，不需要 process.env
 
 // HTML 内容（内嵌）
 const HTML_CONTENT = `<!DOCTYPE html>
@@ -192,7 +190,7 @@ async function handleGenerate(env, request) {
                 temperature: 0.7,
                 max_tokens: 2000
             }),
-            signal: AbortSignal.timeout(55000)
+            signal: AbortSignal.timeout ? AbortSignal.timeout(55000) : undefined
         });
 
         if (!response.ok) {
