@@ -25,9 +25,15 @@ miniprogram_miniprogram/
 *.dll
 *.so
 *.dylib
+desktop-app/electron-v30.zip
 
 # 部署包
 deploy/oler-helper-deploy.zip
+
+# 服务器文件（不需要部署到 GitHub）
+server/server.js
+server/api/
+server/vercel.json
 
 # 临时文件
 *.swp
