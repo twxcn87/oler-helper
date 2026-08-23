@@ -1,7 +1,8 @@
 // OIer-Helper Vercel Serverless API
-const { OPENAI_API_KEY, OPENAI_BASE_URL = 'https://api.agnes-ai.cn/v1', OPENAI_MODEL = 'agnes-2.5-flash', DEEPSEEK_API_KEY } = process.env;
+const { OPENAI_API_KEY, OPENAI_BASE_URL = 'https://api.agnes-ai.cn/v1', OPENAI_MODEL = 'agnes-2.5-flash' } = process.env;
 
-const SYSTEM_PROMPT = `你是 OIer-Helper，一个专为信息学竞赛学生设计的算法学习助手。
+function buildSystemPrompt() {
+    return `你是 OIer-Helper，一个专为信息学竞赛学生设计的算法学习助手。
 你的语气要耐心友好，像真正的助教，不做居高临下的评判。
 重要：给出的代码仅供学习参考，禁止直接复制提交，鼓励学生自己理解实现。
 
@@ -11,9 +12,12 @@ const SYSTEM_PROMPT = `你是 OIer-Helper，一个专为信息学竞赛学生设
 3. 先给思路提示，再给完整代码
 4. 注明参考资料来源
 5. 每段代码后加上学术诚信声明`;
+}
 
-const PROMPTS = {
-    problem: `${SYSTEM_PROMPT}
+function buildPrompt(mode, input, issue) {
+    const systemPrompt = buildSystemPrompt();
+    const prompts = {
+        problem: `${systemPrompt}
 
 用户发来了一道题目链接：${input}
 请执行以下流程：
@@ -26,7 +30,7 @@ const PROMPTS = {
 
 如果链接无法访问，请询问用户提供更多题目信息。`,
 
-    algorithm: `${SYSTEM_PROMPT}
+        algorithm: `${systemPrompt}
 
 用户想学习算法：${input}
 请系统讲解：
@@ -40,7 +44,7 @@ const PROMPTS = {
 
 使用 OI Wiki、算法竞赛书籍等权威资料。`,
 
-    debug: `${SYSTEM_PROMPT}
+        debug: `${systemPrompt}
 
 用户发来了一段代码，想让我帮忙找错误。
 问题描述：${issue || '未指定'}
@@ -58,7 +62,7 @@ ${input}
 
 常见错误类型：CE（编译错误）、RE（运行错误）、WA（答案错误）、TLE（超时）`,
 
-    exercise: `${SYSTEM_PROMPT}
+        exercise: `${systemPrompt}
 
 用户学完了知识点：${input}
 想练习，请推荐：
@@ -68,19 +72,21 @@ ${input}
 
 优先推荐洛谷、Codeforces 等知名 OJ 的题目。`,
 
-    notes: `${SYSTEM_PROMPT}
+        notes: `${systemPrompt}
 
 用户想整理知识点笔记：${input}
 请生成结构化笔记：
 1. 核心概念和定义
 2. 关键公式/定理
 3. C++ 代码模板
-4. 典型题型���解题套路
+4. 典型题型和解题套路
 5. 易错点总结
 6. 相关题目推荐
 
 使用 Markdown 格式，结构清晰。`
-};
+    };
+    return prompts[mode] || prompts.problem;
+}
 
 async function callOpenAI(prompt) {
     const response = await fetch(`${OPENAI_BASE_URL}/chat/completions`, {
@@ -104,48 +110,44 @@ async function callOpenAI(prompt) {
 }
 
 export default async function handler(req, res) {
-    // CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    
+
     if (req.method === 'OPTIONS') {
         res.status(200).end();
         return;
     }
 
-    // Health check
     if (req.url === '/api/health' && req.method === 'GET') {
         return res.json({ status: 'ok', timestamp: new Date().toISOString() });
     }
 
-    // Config
     if (req.url === '/api/config' && req.method === 'GET') {
         return res.json({ valid: !!OPENAI_API_KEY, provider: 'openai' });
     }
 
-    // Generate
     if (req.url === '/api/generate' && req.method === 'POST') {
         try {
-            const { mode, input, issue } = req.body;
-            
+            let body = '';
+            for await (const chunk of req.body) body += chunk;
+            const { mode, input, issue } = JSON.parse(body || '{}');
+
             if (!mode || !input) {
                 return res.status(400).json({ error: '缺少必要参数' });
             }
-            
             if (!OPENAI_API_KEY) {
                 return res.status(500).json({ error: '未配置 OPENAI_API_KEY' });
             }
 
-            const prompt = PROMPTS[mode] || PROMPTS.problem;
+            const prompt = buildPrompt(mode, input, issue);
             const content = await callOpenAI(prompt);
-            
             return res.json({ success: true, content, mode });
         } catch (error) {
             console.error('API error:', error.message);
-            return res.status(500).json({ 
+            return res.status(500).json({
                 error: 'AI 服务暂时不可用，请稍后重试',
-                details: error.message 
+                details: error.message
             });
         }
     }
