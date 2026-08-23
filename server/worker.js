@@ -190,7 +190,7 @@ async function handleGenerate(env, request) {
                 temperature: 0.7,
                 max_tokens: 2000
             }),
-            signal: AbortSignal.timeout ? AbortSignal.timeout(55000) : undefined
+            // signal: Cloudflare Workers 不支持 AbortSignal.timeout，移除
         });
 
         if (!response.ok) {
