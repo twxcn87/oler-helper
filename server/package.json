@@ -1,10 +1,11 @@
 {
-  "name": "oler-helper",
-  "main": "worker.js",
+  "name": "oler-helper-api",
+  "version": "1.0.0",
+  "main": "server.js",
   "scripts": {
-    "dev": "wrangler dev"
+    "start": "node server.js"
   },
-  "devDependencies": {
-    "wrangler": "^3.0.0"
+  "engines": {
+    "node": "18.x"
   }
 }
