@@ -1,7 +1,0 @@
-name = "oler-helper"
-main = "worker.js"
-compatibility_date = "2024-01-01"
-compatibility_flags = ["nodejs_compat"]
-
-# 环境变量在 Cloudflare Dashboard 中配置
-# OPENAI_API_KEY, OPENAI_BASE_URL, OPENAI_MODEL
