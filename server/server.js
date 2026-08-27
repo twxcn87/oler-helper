@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 function parseBody(req) {
     return new Promise((resolve, reject) => {
         let body = '';
+        req.setEncoding('utf8');
         req.on('data', chunk => body += chunk);
         req.on('end', () => {
             try { resolve(body ? JSON.parse(body) : {}); }
