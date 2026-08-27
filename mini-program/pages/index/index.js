@@ -145,7 +145,7 @@ Page({
         throw new Error('网络请求失败，请检查服务器是否运行')
       }
 
-      if (response.data.success) {
+      if (response.data && response.data.content) {
         // 将 Markdown 转换为 HTML
         const htmlContent = markdownToHTML(response.data.content)
         this.setData({
@@ -153,7 +153,7 @@ Page({
           resultNodes: htmlContent
         })
       } else {
-        throw new Error(response.data.error || '请求失败')
+        throw new Error(response.data?.error || '请求失败，服务器未返回有效内容')
       }
     } catch (error) {
       console.error('请求失败:', error)
