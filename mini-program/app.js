@@ -16,13 +16,13 @@ App({
     }
 
     this.globalData = {
-      apiBase: 'https://motorcycle-lace-scotia-surgical.trycloudflare.com',
+      apiBase: 'https://shame-tomatoes-contest-screen.trycloudflare.com',
       userInfo: null
     }
   },
 
   globalData: {
-    apiBase: 'https://motorcycle-lace-scotia-surgical.trycloudflare.com',
+    apiBase: 'https://shame-tomatoes-contest-screen.trycloudflare.com',
     userInfo: null
   }
 })
