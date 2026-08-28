@@ -2,7 +2,7 @@
 // OIer-Helper 微信小程序 - 接入真实 AI API
 
 // API 地址配置 - 使用 Vercel 在线部署
-const API_BASE = 'https://wild-questionnaire-services-easily.trycloudflare.com';
+const API_BASE = 'https://initially-diverse-boards-creek.trycloudflare.com';
 
 // Markdown 转 HTML（简单实现）
 function markdownToHTML(md) {

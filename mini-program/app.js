@@ -16,13 +16,13 @@ App({
     }
 
     this.globalData = {
-      apiBase: 'https://wild-questionnaire-services-easily.trycloudflare.com',
+      apiBase: 'https://initially-diverse-boards-creek.trycloudflare.com',
       userInfo: null
     }
   },
 
   globalData: {
-    apiBase: 'https://wild-questionnaire-services-easily.trycloudflare.com',
+    apiBase: 'https://initially-diverse-boards-creek.trycloudflare.com',
     userInfo: null
   }
 })
