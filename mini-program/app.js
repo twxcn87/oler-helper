@@ -16,13 +16,13 @@ App({
     }
 
     this.globalData = {
-      apiBase: 'https://shame-tomatoes-contest-screen.trycloudflare.com',
+      apiBase: 'https://wild-questionnaire-services-easily.trycloudflare.com',
       userInfo: null
     }
   },
 
   globalData: {
-    apiBase: 'https://shame-tomatoes-contest-screen.trycloudflare.com',
+    apiBase: 'https://wild-questionnaire-services-easily.trycloudflare.com',
     userInfo: null
   }
 })
