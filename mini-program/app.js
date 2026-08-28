@@ -16,13 +16,13 @@ App({
     }
 
     this.globalData = {
-      apiBase: 'http://49.235.106.148:3000',
+      apiBase: 'https://motorcycle-lace-scotia-surgical.trycloudflare.com',
       userInfo: null
     }
   },
 
   globalData: {
-    apiBase: 'http://localhost:8080',
+    apiBase: 'https://motorcycle-lace-scotia-surgical.trycloudflare.com',
     userInfo: null
   }
 })
