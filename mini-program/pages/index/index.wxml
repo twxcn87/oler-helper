@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="title">🤖 OIer-Helper</view>
-  <view class="subtitle">算法学习助手 - 像助教一样的耐心辅导</view>
+  <view class="title">🤖 OI算法AI助手</view>
+  <view class="subtitle">信息学奥赛AI助手，智能出题、代码评测、算法讲解</view>
   
   <view class="card">
     <view class="mode-tabs">
@@ -129,6 +129,6 @@
   </view>
   
   <view class="footer">
-    <text>OIer-Helper v1.0 | 仅供学习参考，请遵守学术诚信</text>
+    <text>OI算法AI助手 | 仅供学习参考，请遵守学术诚信</text>
   </view>
 </view>
